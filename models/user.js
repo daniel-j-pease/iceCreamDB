@@ -5,7 +5,7 @@ const salt = 10;
 
 function createUser(req, res, next) {
   if (req.body.signupPassword === req.body.signupConfirm) {
-    db.none('INSERT INTO users (users.username, users.password, users.total_workouts) VALUES ($1, $2, $3);',
+    db.none('INSERT INTO users (username, password, total_workouts) VALUES ($1, $2, $3);',
       [req.body.signupUsername, bcrypt.hashSync(req.body.signupPassword, salt), 0])
       .then( () => {
         res.signupResult = {signup: true}
