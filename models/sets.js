@@ -1,4 +1,4 @@
-const db = require('../lib/db');
+const db = require('../lib/db.js');
 
 function getAllSets(req, res, next) {
   db.many('SELECT * FROM sets')
