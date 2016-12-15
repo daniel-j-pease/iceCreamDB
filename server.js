@@ -13,8 +13,10 @@ app.use(bodyParser.json());
 
 const apiRouter = require('./routes/api.js');
 const userRouter = require('./routes/user.js');
+const homeRouter = require('./routes/home.js')
 app.use('/api', apiRouter);
 app.use('/user', userRouter);
+app.use('/home', homeRouter)
 
 app.use('/', (req, res, next) => {
   res.send('hi')
