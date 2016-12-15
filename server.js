@@ -16,7 +16,7 @@ const userRouter = require('./routes/user.js');
 app.use('/api', apiRouter);
 app.use('/user', userRouter);
 
-app.use('/', (req, res) => {
+app.use('/', (req, res, next) => {
   res.json({message: 'hi!'})
 })
 
