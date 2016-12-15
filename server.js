@@ -16,4 +16,8 @@ const userRouter = require('./routes/user.js');
 app.use('/api', apiRouter);
 app.use('/user', userRouter);
 
+app.use('/', (req, res) => {
+  res.json({message: 'hi!'})
+})
+
 app.listen(PORT, () => {console.log('free hugs at port', PORT)});
