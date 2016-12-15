@@ -17,7 +17,7 @@ app.use('/api', apiRouter);
 app.use('/user', userRouter);
 
 app.use('/', (req, res, next) => {
-  res.json({message: 'hi!'})
+  res.send('hi')
 })
 
 app.listen(PORT, () => {console.log('free hugs at port', PORT)});
