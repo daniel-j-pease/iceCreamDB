@@ -1,17 +1,15 @@
-const client = require('../lib/db.js')
+const db = require('../lib/db');
 const bcrypt = require('bcryptjs');
 
 const salt = 10;
 
 function createUser(req, res, next) {
   if (req.body.signupPassword === req.body.signupConfirm) {
-    client.connect()
-    client.query('INSERT INTO users (username, password, total_workouts) VALUES ($1, $2, $3);',
+    db.none('INSERT INTO users (username, password, total_workouts) VALUES ($1, $2, $3);',
       [req.body.signupUsername, bcrypt.hashSync(req.body.signupPassword, salt), 0])
       .then( () => {
         res.signupResult = {signup: true}
         next()
-        client.end()
       })
     .catch(error => console.log(error))
   } else {
@@ -23,18 +21,15 @@ function createUser(req, res, next) {
 
 function authenticate(req, res, next) {
   console.log(req.body)
-  client.connect()
-  client.query('SELECT * FROM users WHERE username = $/loginUsername/;', req.body)
+  db.one('SELECT * FROM users WHERE username = $/loginUsername/;', req.body)
     .then((data) => {
       const match = bcrypt.compareSync(req.body.loginPassword, data.password);
       if (match) {
         res.loginResult = data
         next();
-        client.end();
       } else {
         res.loginResult = {failed: "failed"}
         next();
-        client.end();
         return
       }
     })
@@ -43,11 +38,9 @@ function authenticate(req, res, next) {
 
 function incrementTotalWorkouts(req, res, next) {
   console.log(req.body)
-  client.connect()
-  client.query('UPDATE users SET total_workouts = $/total_workouts/ WHERE username = $/username/;', req.body)
+  db.none('UPDATE users SET total_workouts = $/total_workouts/ WHERE username = $/username/;', req.body)
     .then( () => {
       next();
-      client.end();
     })
   .catch(error => console.log(error))
 }
