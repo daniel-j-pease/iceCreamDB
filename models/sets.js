@@ -1,7 +1,6 @@
 const client = require('../lib/db.js')
 
 function getAllSets(req, res, next) {
-  client.connect()
   client.query('SELECT * FROM sets')
     .then(allSets => {
       res.allSets = allSets
