@@ -15,9 +15,10 @@
     "express": "^4.14.0",
     "morgan": "^1.7.0",
     "path": "^0.12.7",
+    "pg": "^6.1.2",
     "pg-promise": "^5.5.0"
   },
-    "engines": {
+  "engines": {
     "node": "6.6.0"
   },
   "devDependencies": {
