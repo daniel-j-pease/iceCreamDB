@@ -1,4 +1,4 @@
-const db = require('../lib/db.js');
+const { db } = require('../lib/db.js');
 
 function getAllSets(req, res, next) {
   db.any('SELECT * FROM sets')
