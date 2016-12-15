@@ -1,7 +1,7 @@
 const db = require('../lib/db.js');
 
 function getAllSets(req, res, next) {
-  db.many('SELECT * FROM sets')
+  db.any('SELECT * FROM sets')
     .then(allSets => {
       res.allSets = allSets
       next();
