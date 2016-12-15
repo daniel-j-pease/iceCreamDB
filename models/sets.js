@@ -1,10 +1,14 @@
-const { db } = require('../lib/db.js');
+const pg = require('pg')
+const Client = require('pg').Client;
+const client = new Client(process.env.DATABASE_URL);
 
 function getAllSets(req, res, next) {
-  db.any('SELECT * FROM sets')
+  client.connect()
+  client.query('SELECT * FROM sets')
     .then(allSets => {
       res.allSets = allSets
       next();
+      client.end()
     })
   .catch(error => console.log(error))
 }
